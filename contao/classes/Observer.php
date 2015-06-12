@@ -36,13 +36,16 @@ class Observer
         if (count($ids) < 1) {
             return $arrParams;
         }
-        $item = $metaModel->findById($ids[0]);
         $attributeData = array_shift($attribute->getTranslatedDataFor($ids, $strLanguage));
 
-        $value = $attributeData['value'];
-        // Override URL parameter now.
-        $GLOBALS['TL_CONFIG']['useAutoItem'] = $uri[0];
-        $arrParams['url'] = array($value);
+        if (is_null($attributeData)) {
+            $arrParams['hide'] = true;
+        } else {
+            $value = $attributeData['value'];
+            // Override URL parameter now.
+            $GLOBALS['TL_CONFIG']['useAutoItem'] = $uri[0];
+            $arrParams['url'] = array($value);
+        }
         return $arrParams;
     }
 }
