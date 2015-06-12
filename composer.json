@@ -1,0 +1,34 @@
+{
+    "name": "imi/imi_mm_changelanguage",
+    "description": "Enable Language Changer for Meta Models",
+    "keywords": [
+        "contao",
+        "metamodels",
+        "changelanguage"
+    ],
+    "type": "contao-module",
+    "homepage": "http://www.imi-digital.de",
+    "license": "GPL2",
+    "authors": [
+        {
+            "name": "iMi digital GmbH - Alexander Menk",
+            "email": "a.menk@imi.de",
+            "homepage": "http://www.imi-digital.de",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "contao/core": ">=3.4.5",
+        "contao-community-alliance/composer-plugin": "~2.0"
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "contao": "system/modules/imi_mm_changelanguage"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
