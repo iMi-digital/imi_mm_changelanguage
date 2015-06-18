@@ -116,7 +116,7 @@ class Observer
             }
             $ids = $attribute->searchForInLanguages($alias, array($GLOBALS['TL_LANGUAGE']));
             if (count($ids) < 1) {
-                continue;;
+                continue;
             }
             $attributeData = array_shift($attribute->getTranslatedDataFor($ids, $strLanguage));
 
