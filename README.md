@@ -10,11 +10,14 @@ Installation
 
 Install the module as usual using the Contao extension respository in the backend.
 
-Known Issues
-------------
+Configuration
+-------------
 
-* Does not check if there is a meta model on the page at all
-* MetaModel name has to be edited manually at `classes/Observer.php:29`
+The module automatically detects the meta models which used on the current page
+and whether a parameter `auto_item` is used as a filter. This parameter's
+value is then translated.
+
+The autodetection can be overwritten via `$GLOBALS['TL_CONFIG']['mm_changelanguage']` in `initconfig.php`. It must be an array with `$metamodelName => $attributeName`.
 
 About Us
 =================
