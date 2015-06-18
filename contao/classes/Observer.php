@@ -6,10 +6,41 @@ namespace iMi\MMChangeLanguage;
 class Observer
 {
 
-    private function getCurrentMetamodels() {
-        global $objPage;
-
+    /**
+     * Detect the attribute name for the auto_item parameter which is used in the filter
+     *
+     * @param $filterId Filter ID
+     * @return bool/string
+     */
+    protected function detectFilterAttribute($filterId) {
         $serviceContainer = $GLOBALS['container']['metamodels-service-container'];
+
+        $filterCollection = $serviceContainer
+            ->getFilterFactory()
+            ->createCollection($filterId);
+
+        // find out the attribute name for the auto_item parameter (if used)
+        $parameters = $filterCollection->getParameters();
+        $attributes = $filterCollection->getReferencedAttributes();
+        $autoItemIndex = array_search('auto_item', $parameters);
+        if ($autoItemIndex !== false) {
+            $attributeName = $attributes[$autoItemIndex];
+            return $attributeName;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Detect meta models which are used in the current page
+     * - via layout modules
+     * - via content elements
+     *
+     * @return array metamodel name => attribute name
+     */
+    protected function getCurrentMetamodels() {
+        global $objPage;
 
         $curModel = array();
         $factory = \MetaModels\Factory::getDefaultFactory();
@@ -21,7 +52,10 @@ class Observer
             $objModule = ( \ModuleModel::findByPk($module['mod'] ));
             if ($objModule->metamodel_layout) {
                 $modelName = $factory->translateIdToMetaModelName($objModule->metamodel);
-                if ($modelName) $curModel[] = $modelName;
+                $filterAttribute = $this->detectFilterAttribute($objModule->metamodel_filtering);
+                if ($filterAttribute !== false) {
+                    $curModel[$modelName] = $filterAttribute;
+                }
             };
         }
 
@@ -32,24 +66,13 @@ class Observer
                 if ($contents) {
                     foreach( $contents as $content ) {
                         $modelName = $factory->translateIdToMetaModelName($content->metamodel);
-
                         if (!$modelName) {
                             continue;
                         }
-
-                        $filterCollection = $serviceContainer
-                            ->getFilterFactory()
-                            ->createCollection($content->metamodel_filtering);
-
-                        // find out the attribute name for the auto_item parameter (if used)
-                        $parameters = $filterCollection->getParameters();
-                        $attributes = $filterCollection->getReferencedAttributes();
-                        $autoItemIndex = array_search('auto_item', $parameters);
-                        if ($autoItemIndex !== false) {
-                            $attributeName = $attributes[$autoItemIndex];
-                            $curModel[$modelName] = $attributeName;
+                        $filterAttribute = $this->detectFilterAttribute($content->metamodel_filtering);
+                        if ($filterAttribute !== false) {
+                            $curModel[$modelName] = $filterAttribute;
                         }
-
                     };
                 }
             }
