@@ -98,6 +98,7 @@ class Observer
             $attributeData = array_shift($attribute->getTranslatedDataFor($ids, $strLanguage));
 
             if (is_null($attributeData)) {
+                // this requires https://github.com/terminal42/contao-changelanguage/pull/48
                 $arrParams['hide'] = true;
             } else {
                 $value = $attributeData['value'];
