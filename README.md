@@ -8,7 +8,8 @@ Repository link: t.b.a
 Installation
 ------------
 
-Install the module as usual using the Contao extension respository in the backend.
+Install the module as usual using the composer client with the module name `imi/imi_mm_changelanguage` in the backend.
+
 
 Configuration
 -------------
@@ -29,15 +30,15 @@ In need of support or an implementation of a modul in an existing system, [free 
 Of course we provide development of closed-source moduls as well.
 
 
-Contao Modul imi_articledescription
-====================================
+Contao Modul imi_mm_changelanguage
+==================================
 
 Dieses Modul macht das Modul Changelanguage mit den MetaModels kompatibel.
 
 Installation
 ------------
 
-Installieren Sie das Modul wie üblich über die Funktion Erweiterungen im Contao Backend.
+Installieren Sie das Modul mit dem Composer Client. Der Modulname lautet `imi/imi_mm_changelanguage`
 
 Bekannte Probleme
 -----------------
