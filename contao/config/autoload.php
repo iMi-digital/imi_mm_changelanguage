@@ -15,7 +15,7 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'iMi\MMChangeLanguage\Observer'                => 'system/modules/imi_mm_changelanguage/classes/Observer.php',
+	'iMi\MMChangeLanguage\ImiMMChangeLanguageObserver' => 'system/modules/imi_mm_changelanguage/classes/ImiMMChangeLanguageObserver.php',
 ));
 
 

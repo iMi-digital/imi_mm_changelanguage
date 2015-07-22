@@ -3,7 +3,7 @@
 namespace iMi\MMChangeLanguage;
 
 
-class Observer
+class ImiMMChangeLanguageObserver
 {
 
     /**
@@ -84,7 +84,7 @@ class Observer
     /**
      * Hook callback for changelanguage extension to support language switching on product reader page
      */
-    public function translateMMUrls($arrParams, $strLanguage, $arrRootPage)
+    public function translateMMUrls($arrParams, $strLanguage, $arrRootPage, &$addToNavigation)
     {
         // Remove index.php fragment from uri and drop query parameters as we are not interested in those.
         list($fullUri) = explode('?', str_replace('index.php/', '', \Environment::get('request')), 2);
@@ -116,13 +116,13 @@ class Observer
             }
             $ids = $attribute->searchForInLanguages($alias, array($GLOBALS['TL_LANGUAGE']));
             if (count($ids) < 1) {
-                continue;
+                continue;;
             }
             $attributeData = array_shift($attribute->getTranslatedDataFor($ids, $strLanguage));
 
             if (is_null($attributeData)) {
                 // this requires https://github.com/terminal42/contao-changelanguage/pull/48
-                $arrParams['hide'] = true;
+                $addToNavigation = false;
             } else {
                 $value = $attributeData['value'];
                 // Override URL parameter now.
