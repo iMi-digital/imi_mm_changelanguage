@@ -65,10 +65,23 @@ class ImiMMChangeLanguageObserver
                 $contents = \ContentModel::findPublishedByPidAndTable($article->id, 'tl_article');
                 if ($contents) {
                     foreach( $contents as $content ) {
+                        if ($content->type == 'module') { // resolve insert module
+                            $objModule = ( \ModuleModel::findByPk($content->module));
+                            if ($objModule->metamodel_layout) {
+                                $modelName = $factory->translateIdToMetaModelName($objModule->metamodel);
+                                $filterAttribute = $this->detectFilterAttribute($objModule->metamodel_filtering);
+                                if ($filterAttribute !== false) {
+                                    $curModel[$modelName] = $filterAttribute;
+                                }
+                            };
+                            continue;
+                        }
+
                         $modelName = $factory->translateIdToMetaModelName($content->metamodel);
                         if (!$modelName) {
                             continue;
                         }
+
                         $filterAttribute = $this->detectFilterAttribute($content->metamodel_filtering);
                         if ($filterAttribute !== false) {
                             $curModel[$modelName] = $filterAttribute;
