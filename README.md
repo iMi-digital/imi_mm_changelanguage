@@ -50,4 +50,4 @@ siehe oben (Englisch)
 
 [iMi digital GmbH](http://www.imi.de/) bietet eine breite Auswahl an verschiedenen Open-Source-Module für Contao an. Beim Auftreten von Fragen oder Bugs kann hier sehr gerne ein Thread geöffnet werden.
 
-[Kontaktieren Sie uns](mailto:digital@iMi.de) gerne, wenn Sie Support für die Implementierung eines Moduls in ein bereits bestehendes Shop-System benötigen.In diesem Fall bieten wir einen kostenpflichtigen Full-Service-Support an.
+[Kontaktieren Sie uns](mailto:digital@iMi.de) gerne, wenn Sie Support für die Implementierung eines Moduls in ein bereits bestehendes CMS-System benötigen. In diesem Fall bieten wir einen kostenpflichtigen Full-Service-Support an.
