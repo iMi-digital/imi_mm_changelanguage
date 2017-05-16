@@ -94,10 +94,63 @@ class ImiMMChangeLanguageObserver
         return $curModel;
     }
 
+
+	/**
+	 * For the new changelanguage v3
+	 *
+	 * @param \Terminal42\ChangeLanguage\Event\ChangelanguageNavigationEvent $event
+	 */
+	public function translateMMUrlsV3(
+		\Terminal42\ChangeLanguage\Event\ChangelanguageNavigationEvent $event
+	) {
+		// The target root page for current event
+		$targetRoot = $event->getNavigationItem()->getRootPage();
+		$strLanguage   = $targetRoot->rootLanguage; // The target language
+
+		$currentMetaModels = $this->getCurrentMetamodels();
+
+		$alias = \Input::get('auto_item');
+		if ($alias == null) {
+			return;
+		}
+
+		// allow overwriting of the auto-detected definition
+		if (isset($GLOBALS['TL_CONFIG']['mm_changelanguage'])) {
+			$currentMetaModels = array_merge($currentMetaModels, $GLOBALS['TL_CONFIG']['mm_changelanguage']);
+		}
+		foreach($currentMetaModels as $modelName=>$attributeName) {
+			$metaModel = \MetaModels\Factory::byTableName($modelName);
+			$attribute = $metaModel->getAttribute($attributeName); // your attribute name here.
+			// Only for safety here - You most definitely know that your alias is translated. ;)
+			if (!in_array('MetaModels\Attribute\ITranslated', class_implements($attribute))) {
+				continue;
+			}
+			$ids = $attribute->searchForInLanguages($alias, array($GLOBALS['TL_LANGUAGE']));
+			if (count($ids) < 1) {
+				continue;;
+			}
+			$attributeData = array_shift($attribute->getTranslatedDataFor($ids, $strLanguage));
+
+			if (is_null($attributeData)) {
+				// this requires https://github.com/terminal42/contao-changelanguage/pull/48
+				$event->skipInNavigation();
+				return;
+			} else {
+				$value = $attributeData['value'];
+				// Override URL parameter now.
+				$event->getUrlParameterBag()->setUrlAttribute('items', $value);
+				return;
+			}
+			return;
+		}
+	}
+
     /**
      * Hook callback for changelanguage extension to support language switching on product reader page
+     * Changelanguage v2
+     * @deprecated
      */
-    public function translateMMUrls($arrParams, $strLanguage, $arrRootPage, &$addToNavigation)
+    public function translateMMUrlsV2($arrParams, $strLanguage, $arrRootPage, &$addToNavigation)
     {
         // Remove index.php fragment from uri and drop query parameters as we are not interested in those.
         list($fullUri) = explode('?', str_replace('index.php/', '', \Environment::get('request')), 2);
