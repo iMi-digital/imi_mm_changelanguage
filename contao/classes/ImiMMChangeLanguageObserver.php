@@ -105,7 +105,7 @@ class ImiMMChangeLanguageObserver
 	) {
 		// The target root page for current event
 		$targetRoot = $event->getNavigationItem()->getRootPage();
-		$strLanguage   = $targetRoot->rootLanguage; // The target language
+		$strLanguage   = $targetRoot->language; // The target language
 
 		$currentMetaModels = $this->getCurrentMetamodels();
 
