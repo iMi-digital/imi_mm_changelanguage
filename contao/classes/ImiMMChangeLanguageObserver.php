@@ -105,12 +105,16 @@ class ImiMMChangeLanguageObserver
 	) {
 		// The target root page for current event
 		$targetRoot = $event->getNavigationItem()->getRootPage();
-		$strLanguage   = $targetRoot->language; // The target language
+		$targetLanguage   = $targetRoot->language; // The target language
 
 		$currentMetaModels = $this->getCurrentMetamodels();
 
 		$alias = \Input::get('auto_item');
 		if ($alias == null) {
+			return;
+		}
+
+		if ($targetLanguage == $GLOBALS['TL_LANGUAGE']) {
 			return;
 		}
 
@@ -125,14 +129,26 @@ class ImiMMChangeLanguageObserver
 			if (!in_array('MetaModels\Attribute\ITranslated', class_implements($attribute))) {
 				continue;
 			}
-			$ids = $attribute->searchForInLanguages($alias, array($GLOBALS['TL_LANGUAGE']));
+
+			$arrLanguages = array($GLOBALS['TL_LANGUAGE']);
+
+			// we need this for fallback processing
+			// see also https://github.com/MetaModels/core/issues/1092 (all_langs does not help here)
+			$strFallbackLanguage = $metaModel->getFallbackLanguage();
+			array_unshift($arrLanguages, $strFallbackLanguage);
+
+			// find the current language's metamodel (current language, with fallback if it is "virtual" i.e. date not yet copied)
+			$ids = $attribute->searchForInLanguages($alias, $arrLanguages);
 			if (count($ids) < 1) {
-				continue;;
+				continue;
 			}
-			$attributeData = array_shift($attribute->getTranslatedDataFor($ids, $strLanguage));
+
+			$attributeData = array_shift($attribute->getTranslatedDataFor($ids, $targetLanguage));
+			if ($attributeData == null) {
+				$attributeData = array_shift($attribute->getTranslatedDataFor($ids, $strFallbackLanguage));
+			}
 
 			if (is_null($attributeData)) {
-				// this requires https://github.com/terminal42/contao-changelanguage/pull/48
 				$event->skipInNavigation();
 				return;
 			} else {
