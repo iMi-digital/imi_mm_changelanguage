@@ -31,6 +31,16 @@ class ImiMMChangeLanguageObserver
         return false;
     }
 
+    /**
+     * @return \MetaModels\IFactory
+     */
+    protected function getMMFactory()
+    {
+
+        $container = $GLOBALS['container']['metamodels-service-container'];
+        $factory = $container->getFactory();
+        return $factory;
+    }
 
     /**
      * Detect meta models which are used in the current page
@@ -43,7 +53,7 @@ class ImiMMChangeLanguageObserver
         global $objPage;
 
         $curModel = array();
-        $factory = \MetaModels\Factory::getDefaultFactory();
+        $factory = $this->getMMFactory();
 
         $layout = \LayoutModel::findByPk($objPage->layout);
         $modules = unserialize($layout->modules);
@@ -107,7 +117,9 @@ class ImiMMChangeLanguageObserver
 		$targetRoot = $event->getNavigationItem()->getRootPage();
 		$targetLanguage   = $targetRoot->language; // The target language
 
-		$currentMetaModels = $this->getCurrentMetamodels();
+        $factory = $this->getMMFactory();
+
+        $currentMetaModels = $this->getCurrentMetamodels();
 
 		$alias = \Input::get('auto_item');
 		if ($alias == null) {
@@ -123,7 +135,7 @@ class ImiMMChangeLanguageObserver
 			$currentMetaModels = array_merge($currentMetaModels, $GLOBALS['TL_CONFIG']['mm_changelanguage']);
 		}
 		foreach($currentMetaModels as $modelName=>$attributeName) {
-			$metaModel = \MetaModels\Factory::byTableName($modelName);
+			$metaModel = $factory->getMetaModel($modelName);
 			$attribute = $metaModel->getAttribute($attributeName); // your attribute name here.
 			// Only for safety here - You most definitely know that your alias is translated. ;)
 			if (!in_array('MetaModels\Attribute\ITranslated', class_implements($attribute))) {
