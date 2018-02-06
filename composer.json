@@ -8,7 +8,7 @@
     ],
     "type": "contao-module",
     "homepage": "http://www.imi-digital.de",
-    "license": "GPL2",
+    "license": "GPL-2.0",
     "authors": [
         {
             "name": "iMi digital GmbH - Alexander Menk",
