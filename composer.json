@@ -19,10 +19,8 @@
     ],
     "require": {
         "php": ">=5.3",
-        "contao/core": ">=3.0.0",
         "metamodels/core": "~2.0",
-        "terminal42/contao-changelanguage": "*",
-        "contao-community-alliance/composer-plugin": "~2.0"
+        "terminal42/contao-changelanguage": "*"
     },
     "extra": {
         "contao": {
