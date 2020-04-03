@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "metamodels/core": "~2.0",
+        "metamodels/core": "^2.0",
         "terminal42/contao-changelanguage": "*"
     },
     "extra": {
