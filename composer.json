@@ -21,7 +21,8 @@
         "php": ">=5.3",
         "contao/core-bundle": "~3.5  || ~4.1",
         "metamodels/core": "^2.0",
-        "terminal42/contao-changelanguage": "*"
+        "terminal42/contao-changelanguage": "*",
+        "contao-community-alliance/composer-plugin": "^2.4 || ^3.0"
     },
     "extra": {
         "contao": {
