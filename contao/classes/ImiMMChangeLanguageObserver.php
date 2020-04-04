@@ -126,10 +126,6 @@ class ImiMMChangeLanguageObserver
 			return;
 		}
 
-		if ($targetLanguage == $GLOBALS['TL_LANGUAGE']) {
-			return;
-		}
-
 		// allow overwriting of the auto-detected definition
 		if (isset($GLOBALS['TL_CONFIG']['mm_changelanguage'])) {
 			$currentMetaModels = array_merge($currentMetaModels, $GLOBALS['TL_CONFIG']['mm_changelanguage']);
