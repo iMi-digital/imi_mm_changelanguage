@@ -5,14 +5,14 @@ This module adds compatibility between Contao [MetaModels](https://now.metamodel
 
 Example:
 
-If you have a URL like https://example.com/products and a German fallback page https://example.com/produkte where products are added via Metamodels (https://example.com/products/vacum-cleaner), the language switcher will link to  https://example.com/produke/staubsauger and all other translated products.
+If you have a URL like `https://example.com/products` and a German fallback page `https://example.com/produkte` where products are added via Metamodels (`https://example.com/products/vacum-cleaner`), the language switcher will link to  `https://example.com/produke/staubsauger` and all other translated products.
 
 Tested up to Contao 4.4 and MetaModels 2.1
 
 Installation
 ------------
 
-Install the module as usual using the composer client with the module name `imi/imi_mm_changelanguage` in the backend or using Contao Manager by searching for "imi_mm_changelanguage"
+Install the module as usual using the composer client with the module name `imi/imi_mm_changelanguage` in the backend or using Contao Manager by searching for `imi_mm_changelanguage`
 
 
 Configuration
@@ -45,7 +45,7 @@ Dieses Modul macht Contao [MetaModels](https://now.metamodel.me/) und das Sprach
 
 Beispiel:
 
-Wenn Sie eine URL wie https://example.com/products und eine deutsche Fallback-Seite https://example.com/produkte haben, auf der Produkte über Metamodells (https://example.com/products/vacum-cleaner) hinzugefügt werden, wird der Sprachwechsler einen Links zu https://example.com/produke/staubsauger und allen anderen übersetzten Produkten verwenden.
+Wenn Sie eine URL wie `https://example.com/products` und eine deutsche Fallback-Seite `https://example.com/produkte `haben, auf der Produkte über Metamodells (`https://example.com/products/vacum-cleaner`) hinzugefügt werden, wird der Sprachwechsler einen Links zu `https://example.com/produke/staubsauger` und allen anderen übersetzten Produkten verwenden.
 
 Installation
 ------------
