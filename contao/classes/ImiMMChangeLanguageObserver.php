@@ -134,12 +134,13 @@ class ImiMMChangeLanguageObserver
 		if (isset($GLOBALS['TL_CONFIG']['mm_changelanguage'])) {
 			$currentMetaModels = array_merge($currentMetaModels, $GLOBALS['TL_CONFIG']['mm_changelanguage']);
 		}
+
 		foreach($currentMetaModels as $modelName=>$attributeName) {
 			$metaModel = $factory->getMetaModel($modelName);
 			$attribute = $metaModel->getAttribute($attributeName); // your attribute name here.
 			// Only for safety here - You most definitely know that your alias is translated. ;)
 			if (!in_array('MetaModels\Attribute\ITranslated', class_implements($attribute))) {
-				continue;
+                continue;
 			}
 
 			$arrLanguages = array($GLOBALS['TL_LANGUAGE']);
@@ -161,16 +162,17 @@ class ImiMMChangeLanguageObserver
 			}
 
 			if (is_null($attributeData)) {
-				$event->skipInNavigation();
-				return;
+			    continue;
 			} else {
 				$value = $attributeData['value'];
 				// Override URL parameter now.
 				$event->getUrlParameterBag()->setUrlAttribute('items', $value);
 				return;
 			}
-			return;
 		}
+
+		// fallback - if we do not have any translated values: use untranslated alias
+        $event->getUrlParameterBag()->setUrlAttribute('items', $alias);
 	}
 
     /**
