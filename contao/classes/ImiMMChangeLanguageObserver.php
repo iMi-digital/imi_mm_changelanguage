@@ -13,10 +13,8 @@ class ImiMMChangeLanguageObserver
      * @return bool/string
      */
     protected function detectFilterAttribute($filterId) {
-        $serviceContainer = $GLOBALS['container']['metamodels-service-container'];
-
-        $filterCollection = $serviceContainer
-            ->getFilterFactory()
+        $filterCollection = \Contao\System::getContainer()
+            ->get('metamodels.filter_setting_factory')
             ->createCollection($filterId);
 
         // find out the attribute name for the auto_item parameter (if used)
@@ -36,10 +34,7 @@ class ImiMMChangeLanguageObserver
      */
     protected function getMMFactory()
     {
-
-        $container = $GLOBALS['container']['metamodels-service-container'];
-        $factory = $container->getFactory();
-        return $factory;
+	return \Contao\System::getContainer()->get('metamodels.factory');
     }
 
     /**
