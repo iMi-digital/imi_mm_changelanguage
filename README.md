@@ -7,7 +7,11 @@ Example:
 
 If you have a URL like `https://example.com/products` and a German fallback page `https://example.com/produkte` where products are added via Metamodels (`https://example.com/products/vacum-cleaner`), the language switcher will link to  `https://example.com/produke/staubsauger` and all other translated products.
 
-Tested up to Contao 4.4 and MetaModels 2.1
+Compatibility
+-------------
+
+* Version 3.x - Tested on Contao 4.9.9 and MetaModels 2.2
+* Version 2.x - Tested on Contao 4.4 and MetaModels 2.1
 
 Installation
 ------------
