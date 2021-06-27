@@ -113,6 +113,10 @@ class ImiMMChangeLanguageObserver
 	public function translateMMUrlsV3(
 		\Terminal42\ChangeLanguage\Event\ChangelanguageNavigationEvent $event
 	) {
+	    if (count($event->getUrlParameterBag()->getUrlAttributes()) > 0) {
+            return;
+        }
+
 		// The target root page for current event
 		$targetRoot = $event->getNavigationItem()->getRootPage();
 		$targetLanguage   = $targetRoot->language; // The target language
@@ -169,5 +173,6 @@ class ImiMMChangeLanguageObserver
 
 		// fallback - if we do not have any translated values: use untranslated alias
         $event->getUrlParameterBag()->setUrlAttribute('items', $alias);
+
 	}
 }
