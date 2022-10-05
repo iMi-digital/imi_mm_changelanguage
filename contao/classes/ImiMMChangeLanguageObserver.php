@@ -115,6 +115,9 @@ class ImiMMChangeLanguageObserver
 		// The target root page for current event
 		$targetRoot = $event->getNavigationItem()->getRootPage();
 		$targetLanguage   = $targetRoot->language; // The target language
+        // since metamodels supports localization in side the lanuages (e.g. de-AT), these language codes
+        // need to be converted from e.g. de-AT to de_AT when calling getTranslatedDataFor-method
+        $targetLanguage   = str_replace('-', '_', $targetLanguage);
 
         $factory = $this->getMMFactory();
 
