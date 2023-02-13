@@ -10,7 +10,7 @@ If you have a URL like `https://example.com/products` and a German fallback page
 Compatibility
 -------------
 
-* Version 3.x - Tested on Contao 4.9.9 and MetaModels 2.2
+* Version 3.x - Tested on Contao 4.9.9/4.13.x and MetaModels 2.2/2.3
 * Version 2.x - Tested on Contao 4.4 and MetaModels 2.1
 
 Installation
