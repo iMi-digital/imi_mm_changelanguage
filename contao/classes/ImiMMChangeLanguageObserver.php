@@ -55,7 +55,7 @@ class ImiMMChangeLanguageObserver
 
         foreach ($modules as $module) {
             $objModule = ( \ModuleModel::findByPk($module['mod'] ));
-            if ($objModule->metamodel_layout) {
+            if (isset($objModule->metamodel_layout)) {
                 $modelName = $factory->translateIdToMetaModelName($objModule->metamodel);
                 $filterAttribute = $this->detectFilterAttribute($objModule->metamodel_filtering);
                 if ($filterAttribute !== false) {
